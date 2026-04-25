@@ -10,7 +10,7 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 interface ClientMessage {
-  from: "user" | "bo";
+  from: "user" | "kai";
   text: string;
 }
 

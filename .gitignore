@@ -40,3 +40,8 @@ next-env.d.ts
 deploy.sh
 fix-deploy.sh
 fix-deploy-v2.sh
+finish-deploy.sh
+unprotect.sh
+push-rename.sh
+rename-everything.sh
+.env*.local

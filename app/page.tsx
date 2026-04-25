@@ -6,25 +6,25 @@ import { IPhoneFrame } from "@/components/IPhoneFrame";
 import { ChatHeader } from "@/components/ChatHeader";
 import { ChatBubble, TypingBubble } from "@/components/ChatBubble";
 import { InputBar, type ImageAttachment } from "@/components/InputBar";
-import { useBoStore, type ChatMessage } from "@/lib/store";
+import { useKaiStore, type ChatMessage } from "@/lib/store";
 import { streamChat, blobToBase64, type Attachment } from "@/lib/chatClient";
 
 const ONBOARDING_SEED = {
-  id: "seed-bo-greeting",
-  from: "bo" as const,
+  id: "seed-kai-greeting",
+  from: "kai" as const,
   text: "hey!! welcome 👋 i'm Kai, your ai health coach. what's your name?",
   ts: Date.now(),
   _agent: "general" as const,
 };
 
 export default function Home() {
-  const messages = useBoStore((s) => s.messages);
-  const hasStarted = useBoStore((s) => s.hasStarted);
-  const addMessage = useBoStore((s) => s.addMessage);
-  const updateLastBoMessage = useBoStore((s) => s.updateLastBoMessage);
-  const setProfile = useBoStore((s) => s.setProfile);
-  const start = useBoStore((s) => s.start);
-  const reset = useBoStore((s) => s.reset);
+  const messages = useKaiStore((s) => s.messages);
+  const hasStarted = useKaiStore((s) => s.hasStarted);
+  const addMessage = useKaiStore((s) => s.addMessage);
+  const updateLastKaiMessage = useKaiStore((s) => s.updateLastKaiMessage);
+  const setProfile = useKaiStore((s) => s.setProfile);
+  const start = useKaiStore((s) => s.start);
+  const reset = useKaiStore((s) => s.reset);
 
   const [sending, setSending] = useState(false);
   const [hydrated, setHydrated] = useState(false);
@@ -35,7 +35,7 @@ export default function Home() {
   useEffect(() => {
     setHydrated(true);
     if (!hasStarted) {
-      const existing = useBoStore.getState().messages;
+      const existing = useKaiStore.getState().messages;
       if (existing.length === 0) {
         addMessage(ONBOARDING_SEED);
       }
@@ -65,35 +65,35 @@ export default function Home() {
     };
     addMessage(userMsg);
 
-    const boMsg: ChatMessage = {
-      id: `b-${Date.now() + 1}`,
-      from: "bo",
+    const kaiMsg: ChatMessage = {
+      id: `k-${Date.now() + 1}`,
+      from: "kai",
       text: "",
       ts: Date.now() + 1,
     };
-    addMessage(boMsg);
+    addMessage(kaiMsg);
 
     setSending(true);
     let receivedAnyText = false;
     try {
-      const allMessages = [...useBoStore.getState().messages].slice(0, -1);
+      const allMessages = [...useKaiStore.getState().messages].slice(0, -1);
       let currentAgent: ChatMessage["_agent"] | undefined;
 
       await streamChat({
         messages: allMessages,
-        profile: useBoStore.getState().profile,
+        profile: useKaiStore.getState().profile,
         attachment: attachment ?? null,
         onEvent: (evt) => {
           if (evt.type === "route") {
             currentAgent = evt.route;
           } else if (evt.type === "text") {
             receivedAnyText = true;
-            updateLastBoMessage(evt.chunk, currentAgent);
+            updateLastKaiMessage(evt.chunk, currentAgent);
           } else if (evt.type === "profile") {
             setProfile(evt.patch);
           } else if (evt.type === "error") {
             setErrorBanner(evt.message);
-            updateLastBoMessage(friendlyError(evt.message), currentAgent);
+            updateLastKaiMessage(friendlyError(evt.message), currentAgent);
             receivedAnyText = true;
           }
         },
@@ -103,7 +103,7 @@ export default function Home() {
       const msg = err instanceof Error ? err.message : "network error";
       setErrorBanner(msg);
       if (!receivedAnyText) {
-        updateLastBoMessage(friendlyError(msg), undefined);
+        updateLastKaiMessage(friendlyError(msg), undefined);
       }
     } finally {
       setSending(false);
@@ -135,10 +135,10 @@ export default function Home() {
     setInputValue(text);
   }
 
-  // Show typing indicator while bo's last message is empty
+  // Show typing indicator while kai's last message is empty
   const lastMessage = messages[messages.length - 1];
   const showTyping =
-    sending && lastMessage?.from === "bo" && lastMessage.text.length === 0;
+    sending && lastMessage?.from === "kai" && lastMessage.text.length === 0;
 
   return (
     <BrandShell onPreset={handlePreset}>
@@ -155,7 +155,7 @@ export default function Home() {
                 <>
                   <DateDivider />
                   {messages.map((m, i) => {
-                    if (m.from === "bo" && m.text.length === 0) return null;
+                    if (m.from === "kai" && m.text.length === 0) return null;
                     const prev = messages[i - 1];
                     const showTail = !prev || prev.from !== m.from;
                     return (
@@ -207,7 +207,7 @@ export default function Home() {
             location.reload();
           }
         }}
-        className="fixed bottom-4 right-4 rounded-full border border-bo-line bg-bo-bg-2/70 px-3 py-1.5 text-[10px] font-medium uppercase tracking-wider text-bo-muted backdrop-blur transition hover:text-bo-ink"
+        className="fixed bottom-4 right-4 rounded-full border border-kai-line bg-kai-bg-2/70 px-3 py-1.5 text-[10px] font-medium uppercase tracking-wider text-kai-muted backdrop-blur transition hover:text-kai-ink"
         aria-label="reset demo"
       >
         reset demo

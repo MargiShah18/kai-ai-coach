@@ -45,12 +45,12 @@ export function BrandShell({ children, onPreset }: BrandShellProps) {
       <header className="relative z-10 flex shrink-0 items-center justify-between px-6 py-4 md:px-10">
         <div className="flex items-center gap-2.5">
           <KaiMark />
-          <span className="font-display text-[24px] leading-none text-bo-ink">
+          <span className="font-display text-[24px] leading-none text-kai-ink">
             Kai
           </span>
         </div>
-        <span className="hidden items-center gap-1.5 rounded-full border border-bo-line px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-bo-muted md:inline-flex">
-          <span className="h-1.5 w-1.5 rounded-full bg-bo-accent" />
+        <span className="hidden items-center gap-1.5 rounded-full border border-kai-line px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-kai-muted md:inline-flex">
+          <span className="h-1.5 w-1.5 rounded-full bg-kai-accent" />
           private beta
         </span>
       </header>
@@ -60,18 +60,18 @@ export function BrandShell({ children, onPreset }: BrandShellProps) {
         <div className="grid w-full max-w-[1180px] grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_auto_1fr] lg:gap-12">
           {/* LEFT — brand story */}
           <aside className="hidden flex-col items-end text-right lg:flex">
-            <span className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-bo-line bg-bo-bg-2/40 px-3 py-1 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-bo-muted backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-bo-accent shadow-[0_0_8px_rgba(214,255,61,0.7)]" />
+            <span className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-kai-line bg-kai-bg-2/40 px-3 py-1 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-kai-muted backdrop-blur">
+              <span className="h-1.5 w-1.5 rounded-full bg-kai-accent shadow-[0_0_8px_rgba(214,255,61,0.7)]" />
               your coach, on text
             </span>
 
-            <h1 className="font-display text-[52px] leading-[0.95] tracking-tight text-bo-ink xl:text-[64px]">
+            <h1 className="font-display text-[52px] leading-[0.95] tracking-tight text-kai-ink xl:text-[64px]">
               health that
               <br />
-              <em className="not-italic text-bo-accent">listens back.</em>
+              <em className="not-italic text-kai-accent">listens back.</em>
             </h1>
 
-            <p className="mt-5 max-w-[360px] font-sans text-[14.5px] leading-[1.55] text-bo-muted">
+            <p className="mt-5 max-w-[360px] font-sans text-[14.5px] leading-[1.55] text-kai-muted">
               Kai is an AI coach you can text like a friend. plan workouts,
               track macros, snap a photo of your plate, or just say you&rsquo;re
               tired&nbsp;— and get a real reply, not a chatbot script.
@@ -83,10 +83,10 @@ export function BrandShell({ children, onPreset }: BrandShellProps) {
                   key={f.title}
                   className="flex items-center justify-end gap-3"
                 >
-                  <p className="font-sans text-[14px] font-medium leading-tight text-bo-ink">
+                  <p className="font-sans text-[14px] font-medium leading-tight text-kai-ink">
                     {f.title}
                   </p>
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-bo-line bg-bo-bg-2/60 text-bo-accent shadow-inner">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-kai-line bg-kai-bg-2/60 text-kai-accent shadow-inner">
                     {f.icon}
                   </span>
                 </li>
@@ -100,14 +100,14 @@ export function BrandShell({ children, onPreset }: BrandShellProps) {
           {/* RIGHT — preset rail */}
           <aside className="hidden flex-col lg:flex">
             <div className="mb-1 flex items-center gap-2">
-              <span className="font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-bo-muted">
+              <span className="font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-kai-muted">
                 try a prompt
               </span>
-              <span className="h-px flex-1 bg-gradient-to-r from-bo-line to-transparent" />
+              <span className="h-px flex-1 bg-gradient-to-r from-kai-line to-transparent" />
             </div>
-            <p className="mb-5 font-display text-[20px] leading-tight text-bo-ink">
+            <p className="mb-5 font-display text-[20px] leading-tight text-kai-ink">
               tap one to drop it in the chat&nbsp;
-              <span className="text-bo-muted">— edit, then send.</span>
+              <span className="text-kai-muted">— edit, then send.</span>
             </p>
 
             <div className="flex flex-col items-start gap-2.5">
@@ -135,7 +135,7 @@ export function BrandShell({ children, onPreset }: BrandShellProps) {
 function KaiMark() {
   return (
     <span
-      className="inline-flex h-7 w-7 items-center justify-center rounded-md text-bo-bg"
+      className="inline-flex h-7 w-7 items-center justify-center rounded-md text-kai-bg"
       style={{
         background:
           "radial-gradient(120% 120% at 30% 20%, #e7ff66, #c5ff1f 60%, #a3e000)",

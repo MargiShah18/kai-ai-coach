@@ -24,7 +24,7 @@ export function ChatHeader({ status = "Active now" }: ChatHeaderProps) {
       <div className="flex flex-col items-center gap-0.5 pb-1.5 pt-0.5">
         <div className="relative">
           <div
-            className="flex h-9 w-9 items-center justify-center rounded-full text-[14px] font-bold text-bo-bg"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-[14px] font-bold text-kai-bg"
             style={{
               background:
                 "radial-gradient(120% 120% at 30% 20%, #e7ff66, #c5ff1f 60%, #a3e000)",

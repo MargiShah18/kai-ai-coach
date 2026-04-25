@@ -16,7 +16,7 @@ export interface UserProfile {
 
 export interface ChatMessage {
   id: string;
-  from: "user" | "bo";
+  from: "user" | "kai";
   text: string;
   ts: number;
   /** internal-only: which agent generated this. Never shown in UI. Used for the dev panel only. */
@@ -25,18 +25,18 @@ export interface ChatMessage {
   imageDataUrl?: string;
 }
 
-interface BoState {
+interface KaiState {
   messages: ChatMessage[];
   profile: UserProfile;
   hasStarted: boolean;
   addMessage: (msg: ChatMessage) => void;
-  updateLastBoMessage: (textChunk: string, agent?: ChatMessage["_agent"]) => void;
+  updateLastKaiMessage: (textChunk: string, agent?: ChatMessage["_agent"]) => void;
   setProfile: (patch: Partial<UserProfile>) => void;
   start: () => void;
   reset: () => void;
 }
 
-export const useBoStore = create<BoState>()(
+export const useKaiStore = create<KaiState>()(
   persist(
     (set) => ({
       messages: [],
@@ -46,11 +46,11 @@ export const useBoStore = create<BoState>()(
       addMessage: (msg) =>
         set((s) => ({ messages: [...s.messages, msg] })),
 
-      updateLastBoMessage: (chunk, agent) =>
+      updateLastKaiMessage: (chunk, agent) =>
         set((s) => {
           const msgs = [...s.messages];
           const last = msgs[msgs.length - 1];
-          if (last && last.from === "bo") {
+          if (last && last.from === "kai") {
             msgs[msgs.length - 1] = {
               ...last,
               text: last.text + chunk,
@@ -68,7 +68,7 @@ export const useBoStore = create<BoState>()(
       reset: () => set({ messages: [], profile: {}, hasStarted: false }),
     }),
     {
-      name: "kai-state-v2",
+      name: "kai-state-v3",
       partialize: (s) => ({
         messages: s.messages,
         profile: s.profile,

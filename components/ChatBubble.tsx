@@ -3,7 +3,7 @@
 import { ReactNode } from "react";
 
 interface ChatBubbleProps {
-  from: "user" | "bo";
+  from: "user" | "kai";
   children: ReactNode;
   showTail?: boolean;
   timestamp?: string;

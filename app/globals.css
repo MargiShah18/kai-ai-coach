@@ -6,13 +6,13 @@
   --font-ios: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
     ui-sans-serif, system-ui, sans-serif;
 
-  --color-bo-bg: #0a0908;
-  --color-bo-bg-2: #131211;
-  --color-bo-ink: #f5f1ea;
-  --color-bo-muted: #8a847b;
-  --color-bo-line: #26221d;
-  --color-bo-accent: #d6ff3d; /* electric lime - performance accent */
-  --color-bo-accent-soft: #2a3a08;
+  --color-kai-bg: #0a0908;
+  --color-kai-bg-2: #131211;
+  --color-kai-ink: #f5f1ea;
+  --color-kai-muted: #8a847b;
+  --color-kai-line: #26221d;
+  --color-kai-accent: #d6ff3d; /* electric lime - performance accent */
+  --color-kai-accent-soft: #2a3a08;
 
   --color-imsg-blue: #007aff;
   --color-imsg-gray: #e9e9eb;
@@ -29,8 +29,8 @@
 
   html,
   body {
-    background: var(--color-bo-bg);
-    color: var(--color-bo-ink);
+    background: var(--color-kai-bg);
+    color: var(--color-kai-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -39,8 +39,8 @@
   }
 
   ::selection {
-    background: var(--color-bo-accent);
-    color: var(--color-bo-bg);
+    background: var(--color-kai-accent);
+    color: var(--color-kai-bg);
   }
 }
 
@@ -89,7 +89,7 @@
      the SVG attaches flush with no seam. */
 
   /* Typing dots */
-  @keyframes bo-typing {
+  @keyframes kai-typing {
     0%, 60%, 100% {
       transform: translateY(0);
       opacity: 0.4;
@@ -100,7 +100,7 @@
     }
   }
   .typing-dot {
-    animation: bo-typing 1.2s infinite;
+    animation: kai-typing 1.2s infinite;
   }
   .typing-dot:nth-child(2) {
     animation-delay: 0.15s;
