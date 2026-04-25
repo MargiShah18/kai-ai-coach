@@ -44,4 +44,7 @@ finish-deploy.sh
 unprotect.sh
 push-rename.sh
 rename-everything.sh
+post-rename-fix.sh
 .env*.local
+DEMO_SCRIPT.md
+HANDOFF.md

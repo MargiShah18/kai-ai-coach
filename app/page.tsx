@@ -221,8 +221,11 @@ function friendlyError(raw: string): string {
   if (m.includes("api key") || m.includes("api_key") || m.includes("permission")) {
     return "(your gemini api key isn't working — double-check .env.local and restart the dev server)";
   }
-  if (m.includes("not found") || m.includes("404") || m.includes("model")) {
-    return "(this gemini model isn't available on your key — set GEMINI_AGENT_MODEL=gemini-2.5-flash in .env.local and restart)";
+  if (m.includes("not found") || m.includes("404")) {
+    return "(this gemini model isn't available on your key — try a different GEMINI_AGENT_MODEL in .env.local and restart)";
+  }
+  if (m.includes("thought_signature")) {
+    return "(internal: function-call signature mismatch — a fix has been applied, try again)";
   }
   if (m.includes("quota") || m.includes("rate") || m.includes("429")) {
     return "(rate limited by gemini — wait a few seconds and try again)";

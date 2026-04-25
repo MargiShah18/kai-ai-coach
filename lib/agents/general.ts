@@ -94,6 +94,14 @@ export async function streamGeneralReply(opts: {
 
     let textThisHop = "";
     const functionCallsThisHop: FunctionCall[] = [];
+    /**
+     * Capture the model's raw response parts EXACTLY as they arrive. This is
+     * critical for Gemini 3 — its thinking models attach a `thoughtSignature`
+     * to functionCall parts, and that signature MUST be echoed back verbatim
+     * in the next-turn history or the API returns 400 INVALID_ARGUMENT
+     * ("Function call is missing a thought_signature in functionCall parts").
+     */
+    const modelTurnParts: Part[] = [];
 
     for await (const chunk of stream) {
       const text = chunk.text;
@@ -101,6 +109,10 @@ export async function streamGeneralReply(opts: {
         textThisHop += text;
         totalTextEmitted = true;
         onText(text);
+      }
+      const chunkParts = chunk.candidates?.[0]?.content?.parts;
+      if (chunkParts && chunkParts.length) {
+        modelTurnParts.push(...chunkParts);
       }
       const calls = chunk.functionCalls;
       if (calls && calls.length) {
@@ -122,13 +134,18 @@ export async function streamGeneralReply(opts: {
       break;
     }
 
-    // The model called a tool and produced no text. Append a model turn echoing
-    // the function call(s), then a function-response turn, and re-stream so the
-    // model can produce its actual reply.
-    const modelParts: Part[] = functionCallsThisHop.map((fc) => ({
-      functionCall: { name: fc.name ?? "saveProfile", args: fc.args ?? {} },
-    }));
-    conversation.push({ role: "model", parts: modelParts });
+    // The model called a tool and produced no text. Echo the model turn back
+    // VERBATIM (preserving thoughtSignature on function-call parts), then add a
+    // function-response turn, and re-stream so the model can produce its reply.
+    if (modelTurnParts.length === 0) {
+      // Defensive fallback if the SDK didn't expose chunk parts for some reason.
+      modelTurnParts.push(
+        ...functionCallsThisHop.map<Part>((fc) => ({
+          functionCall: { name: fc.name ?? "saveProfile", args: fc.args ?? {} },
+        }))
+      );
+    }
+    conversation.push({ role: "model", parts: modelTurnParts });
 
     const responseParts: Part[] = functionCallsThisHop.map((fc) => ({
       functionResponse: {
