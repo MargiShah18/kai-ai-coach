@@ -1,6 +1,8 @@
 # Kai
 
 https://kai-ai-coach.vercel.app/
+
+
 A small AI health coach that lives inside an iMessage interface. Text it, send a voice note, or upload a photo of your meal — it'll plan workouts, estimate macros, and keep tabs on you.
 
 ## Architecture
